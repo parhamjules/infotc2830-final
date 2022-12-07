@@ -13,6 +13,10 @@ class TierListItems extends Table {
     })
   }
 
+  static update(itemId, tier, sort) {
+    return super.query(`UPDATE tier_list_items SET tier = '${tier}', sort = ${sort} WHERE id = ${itemId}`);
+  }
+
 }
 
 module.exports = TierListItems

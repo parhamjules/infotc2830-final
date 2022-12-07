@@ -11,17 +11,17 @@
     </div>
     <div class="tier-list flex-grow-1">
       <div class="tier-label tier-s">S</div>
-      <%- include('tier', {tier: 's', items}); %>
+      <%- include('tier', {tier: 's', items, listId: list.id}); %>
       <div class="tier-label tier-a">A</div>
-      <%- include('tier', {tier: 'a', items}); %>
+      <%- include('tier', {tier: 'a', items, listId: list.id}); %>
       <div class="tier-label tier-b">B</div>
-      <%- include('tier', {tier: 'b', items}); %>
+      <%- include('tier', {tier: 'b', items, listId: list.id}); %>
       <div class="tier-label tier-c">C</div>
-      <%- include('tier', {tier: 'c', items}); %>
+      <%- include('tier', {tier: 'c', items, listId: list.id}); %>
       <div class="tier-label tier-d">D</div>
-      <%- include('tier', {tier: 'd', items}); %>
+      <%- include('tier', {tier: 'd', items, listId: list.id}); %>
       <div class="tier-label tier-f">F</div>
-      <%- include('tier', {tier: 'f', items}); %>
+      <%- include('tier', {tier: 'f', items, listId: list.id}); %>
     </div>
     <div class="d-flex justify-content-between align-items-center mb-1">
       <h3>Items</h3>
@@ -30,7 +30,7 @@
         <span>Manage Items</span>
       </a>
     </div>
-    <%- include('item_pool', {items}); %>
+    <%- include('item_pool', {items, listId: list.id}); %>
   </section>
 </div>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.6.0/Sortable.js"></script>

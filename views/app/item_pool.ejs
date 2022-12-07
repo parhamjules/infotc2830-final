@@ -1,4 +1,4 @@
-<div id="pool" class="tier-list-pool">
+<div id="pool" class="tier-list-pool" data-tier="pool" data-list-id="<%= listId %>">
   <% items.pool.forEach(item => { %>
     <%- include('item', {item}); %>
   <% }); %>

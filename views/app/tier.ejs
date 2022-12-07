@@ -1,4 +1,4 @@
-<div id="<%= tier %>-tier" class="tier-content">
+<div id="<%= tier %>-tier" class="tier-content" data-tier="<%= tier %>" data-list-id="<%= listId %>">
   <% items[tier].forEach(item => { %>
     <%- include('item', {item}); %>
   <% }); %>

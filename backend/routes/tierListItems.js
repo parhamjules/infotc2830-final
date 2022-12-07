@@ -38,6 +38,9 @@ app.post('/:listId/addItem', authenticated, (req, res) => {
   }
 });
 
-app.post('/:listId/updateTier', authenticated, (req, res) => {
-
+app.post('/:listId/updateTier', authenticated, async (req, res) => {
+  const updateMap = await req.body.itemIds.map(async (id, i) => {
+    await TierListItems.update(id, req.body.tier, i + 1);
+  });
+  res.sendStatus(200);
 })

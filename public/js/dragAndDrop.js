@@ -6,19 +6,28 @@ const dTier = document.getElementById("d-tier");
 const fTier = document.getElementById("f-tier");
 const pool = document.getElementById("pool");
 
-function saveTier(tierId) {
-  const tierEl = document.getElementById(tierId);
+async function post(url, data = {}) {
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+  return response.json();
+}
+
+function saveTier(evt) {
+  const tier = evt.to;
+  const tierEl = document.getElementById(tier.id);
   const elArr = Array.from(tierEl.getElementsByClassName('list-item'));
   const itemIds = elArr.map(item => item.dataset.id);
-  // TODO
-  console.log(itemIds);
+  post(`/${tier.dataset.listId}/updateTier`, { itemIds, tier: tier.dataset.tier });
 }
 
 const sortableOpts = {
   group: 'tiers',
   animation: 150,
   draggable: '.list-item',
-  onSort: evt => saveTier(evt.to.id)
+  onSort: saveTier
 };
 
 new Sortable(sTier, sortableOpts);
