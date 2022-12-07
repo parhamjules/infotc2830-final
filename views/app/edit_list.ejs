@@ -1,0 +1,37 @@
+<div id="app-wrapper">
+  <section class="h-100 d-flex flex-column">
+    <div class="d-flex justify-content-between align-items-center">
+      <h2><%= list.name %></h2>
+      <div>
+        <a class="btn btn-secondary mr-3" href="/">
+          <i class="fas fa-caret-left"></i>
+          <span>Back to All Lists</span>
+        </a>
+      </div>
+    </div>
+    <div class="tier-list flex-grow-1">
+      <div class="tier-label tier-s">S</div>
+      <%- include('tier', {tier: 's', items}); %>
+      <div class="tier-label tier-a">A</div>
+      <%- include('tier', {tier: 'a', items}); %>
+      <div class="tier-label tier-b">B</div>
+      <%- include('tier', {tier: 'b', items}); %>
+      <div class="tier-label tier-c">C</div>
+      <%- include('tier', {tier: 'c', items}); %>
+      <div class="tier-label tier-d">D</div>
+      <%- include('tier', {tier: 'd', items}); %>
+      <div class="tier-label tier-f">F</div>
+      <%- include('tier', {tier: 'f', items}); %>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mb-1">
+      <h3>Items</h3>
+      <a class="btn btn-primary" href="/edit/<%= list.id %>/items">
+        <i class="fas fa-layer-group"></i>
+        <span>Manage Items</span>
+      </a>
+    </div>
+    <%- include('item_pool', {items}); %>
+  </section>
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.6.0/Sortable.js"></script>
+<script type="text/javascript" src="/js/dragAndDrop.js"></script>

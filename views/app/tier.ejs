@@ -1,0 +1,5 @@
+<div id="<%= tier %>-tier" class="tier-content">
+  <% items[tier].forEach(item => { %>
+    <%- include('item', {item}); %>
+  <% }); %>
+</div>

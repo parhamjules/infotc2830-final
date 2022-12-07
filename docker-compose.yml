@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - mysql
+    networks:
+      - internalnet
+
+  mysql:
+    image: mysql/mysql-server:8.0
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_PASS}'
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: '${DB_NAME}'
+      MYSQL_USER: '${DB_USER}'
+      MYSQL_PASSWORD: '${DB_PASS}'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    volumes:
+      - 'dev-mysql:/var/lib/mysql'
+    networks:
+      - internalnet
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - '8080:80'
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_PORT: 3306
+      PMA_HOST: mysql
+      PMA_USER: '${DB_USER}'
+      PMA_PASSWORD: '${DB_PASS}'
+    depends_on:
+      - mysql
+    networks:
+      - internalnet
+
+networks:
+  internalnet:
+    driver: bridge
+
+volumes:
+  dev-mysql:
+    driver: local

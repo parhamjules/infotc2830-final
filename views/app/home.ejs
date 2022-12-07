@@ -1,0 +1,39 @@
+<div id="banner">Tier List Maker</div>
+<div id="app-wrapper-with-banner">
+  <section class="h-100">
+    <div class="d-flex justify-content-between align-items-center">
+      <h2>Manage Tier Lists</h2>
+      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newListModal">
+        <i class="fas fa-plus"></i>
+        <span>Create New Tier List</span>
+      </button>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Last Updated</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% lists.forEach(list => { %>
+          <tr>
+            <td><%= list.name %></td>
+            <td><%= helpers.formatDate(list.last_updated) %></td>
+            <td>
+              <a class="btn btn-primary" href="edit/<%= list.id %>" title="Edit">
+                <i class="fas fa-cog"></i>
+              </a>
+              <a class="btn btn-danger" title="Delete">
+                <i class="fas fa-trash"></i>
+              </a>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </section>
+</div>
+<%- include('logout'); %>
+<%- include('new_list_modal'); %>

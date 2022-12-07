@@ -1,0 +1,29 @@
+#banner {
+  width: 100vw;
+  height: 20vh;
+  background: url("../images/banner_bg.jpg") no-repeat center center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4em;
+  color: white;
+  font-family: 'Zen Dots', cursive;
+  text-shadow: 0 0 18px darkred;
+}
+
+#app-wrapper {
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+#app-wrapper-with-banner {
+  min-height: 80vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+#login-register-form {
+  flex-grow: 1;
+  max-width: 450px;
+}

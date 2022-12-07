@@ -1,0 +1,24 @@
+<div id="app-wrapper">
+    <section class="h-100 d-flex flex-column">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Manage Items</h2>
+            <a class="btn btn-secondary mr-3" href="/edit/<%= listId %>">
+                <i class="fas fa-caret-left"></i>
+                <span>Done</span>
+            </a>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <h4>All Items</h4>
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newItemModal">
+                <i class="fas fa-plus"></i>
+                <span>Add Item</span>
+            </button>
+        </div>
+        <div class="tier-list-pool manage-pool mt-2">
+            <% items.forEach(item => { %>
+                <%- include('item', {item}); %>
+            <% }); %>
+        </div>
+    </section>
+</div>
+<%- include('new_item_modal'); %>

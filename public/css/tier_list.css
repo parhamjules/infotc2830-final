@@ -1,0 +1,57 @@
+.tier-list {
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  grid-template-columns: 50px 1fr;
+  margin: 30px 0 20px 0;
+}
+
+.tier-content, .tier-list-pool {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 6px;
+  border: 0.5px solid black;
+  min-height: 75px;
+  box-sizing: content-box;
+}
+
+.tier-label {
+  font-family: 'Zen Dots', cursive;
+  font-size: 20px;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.5px solid black;
+}
+
+.tier-s { background-color: #d2c350; }
+.tier-a { background-color: #cd71e1; }
+.tier-b { background-color: #7ea9d5; }
+.tier-c { background-color: #89dc83; }
+.tier-d { background-color: #ecee90; }
+.tier-f { background-color: #b28a5f; }
+
+.list-item {
+  cursor: pointer;
+  width: 75px;
+  height: 75px;
+  border: 0.5px solid gray;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;
+  color: white;
+  font-weight: bold;
+  font-family: 'Quicksand', sans-serif;
+  background-color: ghostwhite;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.manage-pool .list-item {
+  cursor: unset;
+}
