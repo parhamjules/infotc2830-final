@@ -4,7 +4,7 @@ const table = 'tier_list_items';
 
 class TierListItem extends Model {
 
-  fields = ['list_id', 'name', 'image', 'color', 'sort'];
+  fields = ['list_id', 'name', 'image', 'tier', 'color', 'sort'];
 
   static findByListId(list_id) {
     return super.find({
