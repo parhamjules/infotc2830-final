@@ -5,11 +5,17 @@
       <h2 class="mb-4">Register</h2>
       <div class="mb-3">
         <label for="username" class="form-label">Username</label>
-        <input type="text" class="form-control" id="username" name="username">
+        <input type="text" class="form-control <%= locals.errors?.username ? 'is-invalid' : '' %>" id="username" name="username">
+        <% if(locals.errors?.username) { %>
+          <div class="invalid-feedback"><%= errors.username %></div>
+        <% } %>
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" name="password">
+        <input type="password" class="form-control <%= locals.errors?.password ? 'is-invalid' : '' %>" id="password" name="password">
+        <% if(locals.errors?.password) { %>
+          <div class="invalid-feedback"><%= errors.password %></div>
+        <% } %>
       </div>
       <button type="submit" class="btn btn-primary">Register</button>
     </form>
