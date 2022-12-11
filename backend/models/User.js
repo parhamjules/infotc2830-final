@@ -10,12 +10,6 @@ class User extends Model {
     super(fields);
   }
 
-  static findByCreds(username, password) {
-    return super.findFirst({
-      fields: {username, password}
-    }, table);
-  }
-
   static findByUsername(username) {
     return super.findFirst({
       fields: {username}
