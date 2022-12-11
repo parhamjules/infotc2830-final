@@ -1,8 +1,8 @@
 const db = require("./db");
 
-function query(sql, first = false) {
+function query(sql, binds, first = false) {
   return new Promise((resolve, reject) => {
-    db.query(sql, (err, results) => {
+    db.execute(sql, binds, (err, results) => {
       if(err) {
         reject(err);
       } else {
@@ -22,19 +22,21 @@ class Model {
 
   static find(idOrConds, table, first = false) {
     let sql = `SELECT * FROM ${table} WHERE `;
+    const binds = [];
     if(typeof idOrConds === 'object') {
       Object.entries(idOrConds.fields).forEach(([field, value], i) => {
         if(i > 0) sql += ' AND ';
-        if(typeof value === 'string') value = `'${value}'`;
-        sql += `${field} = ${value}`;
+        sql += `${field} = ?`;
+        binds.push(value);
       });
       if(idOrConds.hasOwnProperty('order')) {
         sql += ` ORDER BY ${idOrConds.order}`;
       }
     } else {
-      sql += `id = ${idOrConds}`;
+      sql += `id = ?`;
+      binds.push(idOrConds);
     }
-    return query(sql, first);
+    return query(sql, binds, first);
   }
 
   static findFirst(idOrConds, table) {
@@ -43,6 +45,7 @@ class Model {
 
   async save(table) {
     let sql = `INSERT INTO ${table} (`;
+    const binds = [];
     const setFields = this.fields.filter(field => this.hasOwnProperty(field));
     setFields.forEach((field, i) => {
       if(i > 0) sql += ', ';
@@ -52,24 +55,26 @@ class Model {
     setFields.forEach((field, i) => {
       if(i > 0) sql += ', ';
       let value = this[field];
-      if(typeof value === 'string') value = `'${value}'`;
-      sql += value;
+      sql += '?';
+      binds.push(value);
     });
     sql += ')';
-    await query(sql);
+    await query(sql, binds);
     const selectLastSql = `SELECT * FROM ${table} ORDER BY id DESC`;
-    return query(selectLastSql, true);
+    return query(selectLastSql, [], true);
   }
 
   static update(fields, id, table) {
     let sql = `UPDATE ${table} SET `;
+    const binds = [];
     Object.entries(fields).forEach(([field, value], i) => {
       if(i > 0) sql += ', ';
-      if(typeof value === 'string') value = `'${value}'`;
-      sql += `${field} = ${value}`
+      sql += `${field} = ?`;
+      binds.push(value);
     });
-    sql += ` WHERE id = ${id}`;
-    return query(sql);
+    sql += ` WHERE id = ?`;
+    binds.push(id);
+    return query(sql, binds);
   }
 }
 
