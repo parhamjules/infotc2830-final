@@ -19,7 +19,7 @@ app.use(express.static('public'));
 app.use(fileUpload());
 
 const loginRoutes = require('./backend/routes/login');
-const registerRoutes = require('./backend/routes/login');
+const registerRoutes = require('./backend/routes/register');
 const tierListRoutes = require('./backend/routes/tierList');
 const tierListItemsRoutes = require('./backend/routes/tierListItems');
 

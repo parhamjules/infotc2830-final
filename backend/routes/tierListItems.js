@@ -1,19 +1,23 @@
 const express = require('express');
 const fs = require("fs");
 const { dirname } = require('path');
-const TierListItems = require('../db/tables/TierListItems');
+const TierListItem = require('../models/TierListItem');
 const { authenticated } = require('../middlewares');
 const { renderTemplate } = require('../helpers');
 const app = module.exports = express();
 
 function createItem(res, listId, name, image, color) {
-  TierListItems.create(listId, name, image, color).then(success => {
-    res.redirect(`/edit/${listId}/items`);
+  TierListItem.findLastInPool(listId).then(lastInPool => {
+    const sort = lastInPool ? lastInPool.sort + 1 : 1;
+    const item = new TierListItem({list_id: listId, name, image, color, sort});
+    item.save().then(newItem => {
+      res.redirect(`/edit/${listId}/items`);
+    });
   });
 }
 
 app.get('/edit/:listId/items', authenticated, (req, res) => {
-  TierListItems.findByListId(req.params.listId).then(items => {
+  TierListItem.findByListId(req.params.listId).then(items => {
     renderTemplate(res, 'app/manage_items', {listId: req.params.listId, items});
   });
 });
@@ -38,9 +42,12 @@ app.post('/:listId/addItem', authenticated, (req, res) => {
   }
 });
 
-app.post('/:listId/updateTier', authenticated, async (req, res) => {
-  const updateMap = await req.body.itemIds.map(async (id, i) => {
-    await TierListItems.update(id, req.body.tier, i + 1);
+app.post('/:listId/updateTier', authenticated, (req, res) => {
+  const toUpdate = req.body.itemIds.length;
+  req.body.itemIds.forEach((id, i) => {
+    TierListItem.update(id, req.body.tier, i + 1);
+    if(i + 1 === toUpdate) {
+      res.sendStatus(200);
+    }
   });
-  res.sendStatus(200);
 })
