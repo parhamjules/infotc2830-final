@@ -18,15 +18,10 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.static('public'));
 app.use(fileUpload());
 
-const loginRoutes = require('./backend/routes/login');
-const registerRoutes = require('./backend/routes/register');
-const tierListRoutes = require('./backend/routes/tierList');
-const tierListItemsRoutes = require('./backend/routes/tierListItems');
-
-app.use(loginRoutes);
-app.use(registerRoutes);
-app.use(tierListRoutes);
-app.use(tierListItemsRoutes);
+app.use(require('./backend/routes/login'));
+app.use(require('./backend/routes/register'));
+app.use(require('./backend/routes/tierList'));
+app.use(require('./backend/routes/tierListItems'));
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
