@@ -29,12 +29,14 @@ class Model {
         sql += `${field} = ?`;
         binds.push(value);
       });
+      if(this.softDeletes) sql += ' AND deleted = 0';
       if(idOrConds.hasOwnProperty('order')) {
         sql += ` ORDER BY ${idOrConds.order}`;
       }
     } else {
       sql += `id = ?`;
       binds.push(idOrConds);
+      if(this.softDeletes) sql += ' AND deleted = 0';
     }
     return query(sql, binds, first);
   }
@@ -73,8 +75,15 @@ class Model {
       binds.push(value);
     });
     sql += ` WHERE id = ?`;
+    if(this.softDeletes) sql += ' AND deleted = 0';
     binds.push(id);
     return query(sql, binds);
+  }
+
+  static delete(id, table) {
+    let sql = this.softDeletes ? `UPDATE ${table} SET deleted = 1` : `DELETE FROM ${table}`;
+    sql += ' WHERE id = ?';
+    return query(sql, [id]);
   }
 }
 

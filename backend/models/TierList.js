@@ -5,6 +5,7 @@ const table = 'tier_lists';
 class TierList extends Model {
 
   fields = ['user_id', 'name'];
+  static softDeletes = true;
 
   static findById(id) {
     return super.findFirst(id, table);
@@ -14,6 +15,10 @@ class TierList extends Model {
     return super.find({
       fields: {user_id}
     }, table);
+  }
+
+  static delete(id) {
+    return super.delete(id, table);
   }
 
   save() {

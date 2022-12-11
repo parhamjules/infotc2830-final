@@ -32,3 +32,9 @@ app.get('/edit/:listId', authenticated, (req, res) => {
     }
   });
 });
+
+app.get('/delete/:listId', authenticated, (req, res) => {
+  TierList.delete(req.params.listId).then(() => {
+    res.redirect('/');
+  });
+});
