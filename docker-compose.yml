@@ -1,16 +1,18 @@
-version: '3'
+version: '3.8'
 
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
+    restart: always
     ports:
       - '3000:3000'
     volumes:
       - .:/usr/src/app
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     networks:
       - internalnet
 
@@ -27,6 +29,11 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
     volumes:
       - 'dev-mysql:/var/lib/mysql'
+      - './db/schema.sql:/docker-entrypoint-initdb.d/0.sql'
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-p${DB_PASS}"]
+      timeout: 10s
+      retries: 10
     networks:
       - internalnet
 
