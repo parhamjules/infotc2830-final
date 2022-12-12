@@ -49,7 +49,8 @@ services:
       PMA_USER: '${DB_USER}'
       PMA_PASSWORD: '${DB_PASS}'
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     networks:
       - internalnet
 
