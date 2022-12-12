@@ -24,7 +24,7 @@ app.post('/createList', (req, res) => {
 app.get('/edit/:listId', authenticated, (req, res) => {
   TierList.findById(req.params.listId).then(list => {
     if(list) {
-      TierListItem.findByListId(list.id).then(items => {
+      TierListItem.findByListId(list.id, 'sort').then(items => {
         const itemMap = {s: [], a: [], b: [], c: [], d: [], f: [], pool: []};
         items.forEach(item => itemMap[item.tier || 'pool'].push(item));
         renderTemplate(res, 'app/edit_list', {list, items: itemMap})

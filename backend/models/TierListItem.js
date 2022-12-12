@@ -7,10 +7,10 @@ class TierListItem extends Model {
   fields = ['list_id', 'name', 'image', 'tier', 'color', 'sort'];
   static softDeletes = true;
 
-  static findByListId(list_id) {
+  static findByListId(list_id, orderBy = 'id') {
     return super.find({
       fields: {list_id},
-      order: 'sort ASC'
+      order: `${orderBy} ASC`
     }, table);
   }
 

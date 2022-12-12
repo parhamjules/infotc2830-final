@@ -6,13 +6,12 @@ const dTier = document.getElementById("d-tier");
 const fTier = document.getElementById("f-tier");
 const pool = document.getElementById("pool");
 
-async function post(url, data = {}) {
-  const response = await fetch(url, {
+function post(url, data = {}) {
+  fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
   });
-  return response.json();
 }
 
 function saveTier(evt) {
