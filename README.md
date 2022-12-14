@@ -18,7 +18,7 @@ To access the database through pma, you can go to http://localhost:8080.
 
 ### Video
 
-In progress...
+https://youtu.be/TUj5MvlXzi4
 
 ### Development Documentation
 
