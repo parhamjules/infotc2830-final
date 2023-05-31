@@ -33,6 +33,20 @@ app.get('/edit/:listId', authenticated, (req, res) => {
   });
 });
 
+app.get('/reset/:listId', authenticated, (req, res) => {
+  TierList.findById(req.params.listId).then(list => {
+    if(list) {
+      TierListItem.findByListId(list.id).then(items => {
+        items.forEach((item, index) => {
+          TierListItem.update(item.id, 'pool', index + 1);
+        });
+      }).then(() => {
+        res.redirect(`/edit/${req.params.listId}`);
+      });
+    }
+  });
+});
+
 app.get('/delete/:listId', authenticated, (req, res) => {
   TierList.delete(req.params.listId).then(() => {
     res.redirect('/');

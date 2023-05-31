@@ -3,9 +3,13 @@
     <div class="d-flex justify-content-between align-items-center">
       <h2><%= list.name %></h2>
       <div>
-        <a class="btn btn-secondary mr-3" href="/">
+        <a class="btn btn-secondary" style="margin-right: 6px;" href="/">
           <i class="fas fa-caret-left"></i>
           <span>Back to All Lists</span>
+        </a>
+        <a class="btn btn-danger" href="/reset/<%= list.id %>">
+          <i class="fas fa-refresh"></i>
+          <span>Reset</span>
         </a>
       </div>
     </div>
